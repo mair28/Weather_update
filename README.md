@@ -1,47 +1,45 @@
-Weather Update Web Application
-This weather application fetches and displays the current weather data for any city entered by the user. It uses the OpenWeatherMap API to get real-time weather information, including temperature, weather description, humidity, and wind speed.
+Weather Update Application
+This is a simple web application that allows users to retrieve real-time weather data for any city, as well as their current location, using the OpenWeatherMap API. The application displays the current weather, along with a 3-hour forecast.
 
 Features:
-User can input any city to get the weather data.
-Displays temperature, weather condition, humidity, and wind speed.
-Simple and clean user interface with responsive design.
+Search Weather by City: Users can input a city name to get the current weather details, including temperature, weather description, humidity, and wind speed.
+Search Weather by Geolocation: Users can retrieve the weather for their current location using the browser's geolocation API.
+3-Hour Forecast: In addition to current weather details, the application displays a short-term forecast for the next 3 hours.
 
-Project Structure:
+1. index.html
+This is the main structure of the web page, which includes:
 
-├── index.html
-├── script.js
-├── styles.css
+A text input for entering a city name.
+Two buttons:
+"Get Weather" for searching by city name.
+"Get Weather By Location" for retrieving weather based on geolocation.
+A container where the weather data is dynamically displayed.
 
-1. index.html - This file contains the basic structure of the web page. It includes a text input for the user to enter a city name, a button to trigger the weather fetch process, and an area to display the fetched weather data.
+2. script.js
+This JavaScript file contains the logic for fetching weather data from the OpenWeatherMap API and handling user input. The main functions include:
 
-Key sections:
-The <input> field where the user can enter the city.
-A button to trigger the getWeather() function.
-A div with an id of weatherData, where the weather details are displayed after the API call.
+getWeather(): Fetches the current weather and a 3-hour forecast for a specified city.
+getWeatherByLocation(): Uses the browser's geolocation API to fetch weather data for the user's current location, along with a 3-hour forecast.
 
-2. script.js - This file contains the JavaScript logic for the application. It handles fetching the weather data from the OpenWeatherMap API using the city entered by the user.
+3. styles.css
+This file contains the styling for the web page:
 
-Key components - API Key: The OpenWeatherMap API key used to authenticate the request.
-getWeather() function: This function retrieves the city from the input field, constructs the API URL, and makes a fetch request to get the weather data.
-If the city is found, it displays the temperature, weather condition, humidity, and wind speed in the weatherData div. If the city is not found, it shows an error message.
+Center-aligned content with a clean, modern look.
+Weather data is displayed in a blue container with some padding and shadow effects for better visibility.
+Dependencies
+This application uses the OpenWeatherMap API to fetch weather data. You need to sign up for an API key at OpenWeatherMap.
 
-const apiKey = 'YOUR_API_KEY_HERE';
+How to Run:
+Clone this repository.
+Open the index.html file in your browser.
+Enter a city name or use the "Get Weather By Location" button to retrieve weather data.
+The current weather and 3-hour forecast will be displayed.
 
-3. styles.css - This file contains the styles for the web page, making it look clean and presentable. The page is styled to be centered on the screen, and the weather data is displayed inside a card-like container.
+API Key
+To use this app, you need an OpenWeatherMap API key. Replace the placeholder apiKey in script.js with your own key.
 
-Key styling:
-.weather-container - The container that holds the weather data and form, styled with a box-shadow and padding.
-.weather-data - Styles the weather information displayed to the user.
-Overall, the CSS creates a neat and responsive design for the app.
-How to Run the Application
-Clone or download the project files.
-Open the index.html file in a web browser.
-Enter a city name in the input box and click "Get Weather."
-The weather data will be fetched from the OpenWeatherMap API and displayed on the screen.
+const apiKey = 'your_api_key_here';
 
-API Integration - This project uses the OpenWeatherMap API to fetch real-time weather data. You need an API key to access the data, which can be obtained by signing up on OpenWeatherMap. Replace the placeholder API key in script.js with your own key:
-
-const apiKey = 'YOUR_API_KEY_HERE';
-
-Known Issues - Make sure the entered city name is valid and spelled correctly.
-There may be a delay if the network connection is slow.
+Known Issues:  
+The geolocation feature might not work if the browser blocks location access or if the user denies permission.
+API requests are limited based on the OpenWeatherMap free tier restrictions.
