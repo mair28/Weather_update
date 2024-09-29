@@ -2,16 +2,106 @@ body {
     font-family: Arial, sans-serif;
     background-color: #f0f0f0;
     text-align: center;
-    margin-top: 50px;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+
 .weather-container {
     background-color: rgb(56, 128, 223);
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
     display: inline-block;
+    width: 90%;
+    max-width: 600px;
+    max-height: 700px;
+    color: #fff;
+    overflow-y: auto;
 }
+
 .weather-data {
-    margin-top: 20px;
     font-size: 18px;
+    text-align: center;
+}
+
+.weather-data h2 {
+    margin-top: 20px;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.weather-container input {
+    width: 70%;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+
+.weather-container button {
+    padding: 10px 15px;
+    font-size: 16px;
+    background-color: #fff;
+    color: rgb(56, 128, 223);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-bottom: 10px;
+    width: 48%;
+}
+
+.weather-container button:hover {
+    background-color: #ddd;
+}
+
+.forecast-container {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 20px;
+    overflow-x: auto;
+}
+
+.forecast-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 10px;
+    text-align: center;
+    min-width: 120px;
+}
+
+.forecast-item img {
+    margin-bottom: 10px;
+}
+
+.forecast-item p {
+    margin: 5px 0;
+    font-size: 14px;
+    color: #fff;
+}
+
+@media screen and (max-width: 600px) {
+    .weather-container {
+        padding: 20px;
+        width: 100%;
+        max-height: 500px;
+    }
+
+    .forecast-item {
+        min-width: 100px;
+    }
+
+    .weather-container input {
+        width: 90%;
+    }
+
+    .weather-container button {
+        width: 100%;
+    }
 }

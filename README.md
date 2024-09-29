@@ -1,45 +1,78 @@
 Weather Update Application
-This is a simple web application that allows users to retrieve real-time weather data for any city, as well as their current location, using the OpenWeatherMap API. The application displays the current weather, along with a 3-hour forecast.
+This is a simple weather application that allows users to get current weather information and a 3-hour weather forecast for any city. The application uses the OpenWeatherMap API to fetch weather data and forecast details. It also includes the functionality to get weather data for the user’s current location using geolocation.
 
-Features:
-Search Weather by City: Users can input a city name to get the current weather details, including temperature, weather description, humidity, and wind speed.
-Search Weather by Geolocation: Users can retrieve the weather for their current location using the browser's geolocation API.
-3-Hour Forecast: In addition to current weather details, the application displays a short-term forecast for the next 3 hours.
+Features
+City-based Weather Search: Users can input the name of a city to get the current weather and forecast.
+Location-based Weather Search: Users can retrieve weather information based on their current geolocation.
+3-Hour Forecast: Displays the forecast for the next 5 time intervals with temperature, humidity, wind speed, and weather descriptions.
+Weather Icons: Weather conditions are displayed along with corresponding icons from OpenWeatherMap.
+Responsive Design: The app is responsive and adjusts based on screen size.
 
-1. index.html
-This is the main structure of the web page, which includes:
+Modifications:
 
-A text input for entering a city name.
-Two buttons:
-"Get Weather" for searching by city name.
-"Get Weather By Location" for retrieving weather based on geolocation.
-A container where the weather data is dynamically displayed.
+1. index.html [Updated]
+Added a search input for city-based weather queries.
+Added buttons to fetch weather either by entering a city name or using the user's geolocation.
+Integrated the necessary script.js file to handle weather fetching and forecast display.
 
-2. script.js
-This JavaScript file contains the logic for fetching weather data from the OpenWeatherMap API and handling user input. The main functions include:
+<div class="weather-container">
+    <h1>Weather Update Today</h1>
+    <p>Enter a city:</p>
+    <input type="text" id="cityInput" placeholder="Enter city name">
+    <button onclick="getWeather()">Get Weather</button>
+    <button onclick="getWeatherByLocation()">Get Weather By Location</button>
+    
+    <div class="weather-data" id="weatherData">
+    </div>
+</div>
 
-getWeather(): Fetches the current weather and a 3-hour forecast for a specified city.
-getWeatherByLocation(): Uses the browser's geolocation API to fetch weather data for the user's current location, along with a 3-hour forecast.
+2. script.js [Updated]
+The script fetches weather data from the OpenWeatherMap API using both city input and geolocation.
+Fetches a 3-hour forecast for the next 5 periods and displays weather icons, temperatures, humidity, and wind speed.
+Improved error handling for cases where the city is not found or location cannot be retrieved.
 
-3. styles.css
-This file contains the styling for the web page:
+Key Functions:
+getWeather(): Fetches weather by city.
+getWeatherByLocation(): Fetches weather using geolocation.
+fetchWeather(): Handles current weather fetching and passes the forecast URL to the forecast function.
+fetchForecast(): Displays a 3-hour forecast for the next 5 time intervals, including icons and weather details.
 
-Center-aligned content with a clean, modern look.
-Weather data is displayed in a blue container with some padding and shadow effects for better visibility.
-Dependencies
-This application uses the OpenWeatherMap API to fetch weather data. You need to sign up for an API key at OpenWeatherMap.
+function getWeather() {
+    const city = document.getElementById('cityInput').value;
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+    const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`;
+    fetchWeather(url, forecastUrl);
+}
+
+3. styles.css [Updated]
+Added styling for the weather container and forecast display.
+The weather container includes a maximum height with a vertical scrollbar when the content exceeds the container’s height.
+Flexbox is used to display the forecast items in a horizontal row, and a responsive design is provided for smaller screens.
+Key Changes:
+
+Weather container styling with auto-scroll for longer content:
+css
+Copy code
+.weather-container {
+    background-color: rgb(56, 128, 223);
+    padding: 30px;
+    border-radius: 15px;
+    width: 90%;
+    max-height: 700px;
+    overflow-y: auto;
+}
+Flex container for forecast items:
+.forecast-container {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 20px;
+    overflow-x: auto;
+}
 
 How to Run:
-Clone this repository.
-Open the index.html file in your browser.
-Enter a city name or use the "Get Weather By Location" button to retrieve weather data.
-The current weather and 3-hour forecast will be displayed.
+>Clone or download the repository.
+>Open index.html in a browser.
+>Enter a city name and click "Get Weather" or click "Get Weather By Location" for geolocation-based weather data.
 
-API Key
-To use this app, you need an OpenWeatherMap API key. Replace the placeholder apiKey in script.js with your own key.
-
-const apiKey = 'your_api_key_here';
-
-Known Issues:  
-The geolocation feature might not work if the browser blocks location access or if the user denies permission.
-API requests are limited based on the OpenWeatherMap free tier restrictions.
+Dependencies:
+OpenWeatherMap API: Make sure to use your own API key by replacing the placeholder in script.js.
