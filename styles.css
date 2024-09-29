@@ -1,6 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
+    font-family: 'Poppins', sans-serif;
+    background-color: #f0f4f8;
     text-align: center;
     margin: 0;
     padding: 0;
@@ -8,71 +10,112 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    color: #ffffff;
 }
 
 .weather-container {
-    background-color: rgb(56, 128, 223);
+    display: flex;
+    justify-content: space-between;
+    background-color: #1E81B0;
     padding: 30px;
     border-radius: 15px;
-    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
-    display: inline-block;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
     width: 90%;
-    max-width: 600px;
-    max-height: 700px;
-    color: #fff;
+    max-width: 1200px;
+    margin: auto;
+    height: 700px;
+}
+
+.weather-content {
+    width: 45%;
+    max-height: 100%;
     overflow-y: auto;
+    padding-right: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.weather-content::-webkit-scrollbar {
+    width: 10px;
+}
+
+.weather-content::-webkit-scrollbar-thumb {
+    background-color: #1E81B0;
+    border-radius: 5px;
+    border: 2px solid #ffffff;
+}
+
+.weather-content::-webkit-scrollbar-track {
+    background-color: #e9f5fb;
 }
 
 .weather-data {
     font-size: 18px;
     text-align: center;
-}
-
-.weather-data h2 {
     margin-top: 20px;
-    font-size: 22px;
-    font-weight: bold;
+    color: #fff;
 }
 
-.weather-container input {
-    width: 70%;
+.weather-data img {
+    display: block;
+    margin: 0 auto;
+}
+
+.weather-content input {
+    width: 76%;
     padding: 10px;
     border-radius: 5px;
     border: none;
-    font-size: 16px;
+    font-size: 20px;
     margin-bottom: 15px;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+    background-color: #e9f5fb;
+    color: #333;
 }
 
-.weather-container button {
+.weather-content button {
     padding: 10px 15px;
     font-size: 16px;
-    background-color: #fff;
-    color: rgb(56, 128, 223);
+    background-color: #ffffff;
+    color: #1E81B0;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
     margin-bottom: 10px;
-    width: 48%;
+    width: 80%;
+    box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.1);
 }
 
-.weather-container button:hover {
-    background-color: #ddd;
+.weather-content button:hover {
+    background-color: #e1e9ef;
+}
+
+.separator {
+    border: none;
+    border-top: 2px solid #ffffff;
+    margin: 20px 0;
+    width: 100%;
 }
 
 .forecast-container {
     display: flex;
     justify-content: space-between;
     padding-top: 20px;
-    overflow-x: auto;
+    flex-wrap: wrap;
+    width: 100%;
+    height: auto;
 }
 
 .forecast-item {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-right: 10px;
     text-align: center;
+    flex: 1 1 20%;
+    margin-right: 20px;
     min-width: 120px;
 }
 
@@ -86,22 +129,21 @@ body {
     color: #fff;
 }
 
-@media screen and (max-width: 600px) {
+#map {
+    width: 45%;
+    height: 100%;
+    border-radius: 15px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+@media screen and (max-width: 768px) {
     .weather-container {
-        padding: 20px;
+        flex-direction: column;
+        height: auto;
+    }
+
+    #map {
         width: 100%;
-        max-height: 500px;
-    }
-
-    .forecast-item {
-        min-width: 100px;
-    }
-
-    .weather-container input {
-        width: 90%;
-    }
-
-    .weather-container button {
-        width: 100%;
+        height: 400px;
     }
 }

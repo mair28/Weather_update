@@ -38,16 +38,17 @@ function fetchWeather(url, forecastUrl) {
             if (data.cod === '404') {
                 document.getElementById('weatherData').innerHTML = `<p>City not found!</p>`;
             } else {
+                const cityName = data.name;
+                const countryCode = data.sys.country;
                 const temp = data.main.temp;
                 const humidity = data.main.humidity;
                 const windSpeed = data.wind.speed;
-                
                 const description = data.weather[0].description;
                 const icon = data.weather[0].icon;
                 const iconUrl = `http://openweathermap.org/img/wn/${icon}@2x.png`;
 
-                // Display current weather details with the icon on top
                 document.getElementById('weatherData').innerHTML = `
+                    <h2>${cityName}<sup>${countryCode}</sup></h2>
                     <img src="${iconUrl}" alt="${description} icon" />
                     <p>Temperature: ${temp} °C</p>
                     <p>Weather: ${description}</p>
@@ -56,7 +57,6 @@ function fetchWeather(url, forecastUrl) {
                     <hr class="separator"/>
                 `;
 
-                // Fetch forecast data only after current weather is shown
                 fetchForecast(forecastUrl);
             }
         })
@@ -66,12 +66,11 @@ function fetchWeather(url, forecastUrl) {
         });
 }
 
-// Function to fetch forecast
+
 function fetchForecast(forecastUrl) {
     fetch(forecastUrl)
         .then(response => response.json())
         .then(data => {
-            console.log('Forecast Data:', data);
             let forecastHtml = '<h2>3 hour forecast</h2><div class="forecast-container">';
             data.list.slice(0, 5).forEach(forecast => {
                 const time = forecast.dt_txt;
@@ -82,7 +81,6 @@ function fetchForecast(forecastUrl) {
                 const forecastIcon = forecast.weather[0].icon;
                 const forecastIconUrl = `http://openweathermap.org/img/wn/${forecastIcon}@2x.png`;
 
-                // Structure each forecast item with icon on top, followed by details
                 forecastHtml += `
                     <div class="forecast-item">
                         <img src="${forecastIconUrl}" alt="Forecast icon" />
@@ -102,3 +100,14 @@ function fetchForecast(forecastUrl) {
             console.error('Error fetching forecast data:', error);
         });
 }
+
+const map = L.map('map').setView([13.41, 122.56], 6);
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+}).addTo(map);
+
+const weatherLayer = L.tileLayer(`https://tile.openweathermap.org/map/temp_new/{z}/{x}/{y}.png?appid=${apiKey}`, {
+    maxZoom: 2,
+    attribution: '&copy; <a href="https://openweathermap.org">OpenWeatherMap</a>'
+}).addTo(map);
