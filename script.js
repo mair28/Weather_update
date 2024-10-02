@@ -47,17 +47,29 @@ function fetchWeather(url, forecastUrl) {
                 const icon = data.weather[0].icon;
                 const iconUrl = `http://openweathermap.org/img/wn/${icon}@2x.png`;
 
-                document.getElementById('weatherData').innerHTML = `
-                    <h2>${cityName}<sup>${countryCode}</sup></h2>
-                    <img src="${iconUrl}" alt="${description} icon" />
-                    <p>Temperature: ${temp} °C</p>
-                    <p>Weather: ${description}</p>
-                    <p>Humidity: ${humidity}%</p>
-                    <p>Wind Speed: ${windSpeed} m/s</p>
-                    <hr class="separator"/>
-                `;
+                // Fetch country details using REST Countries API
+                fetch(`https://restcountries.com/v3.1/alpha/${countryCode}`)
+                    .then(countryResponse => countryResponse.json())
+                    .then(countryData => {
+                        const countryName = countryData[0].name.common;
+                        const countryFlag = countryData[0].flags.svg;
 
-                fetchForecast(forecastUrl);
+                        document.getElementById('weatherData').innerHTML = `
+                            <h2>${cityName}, ${countryName} <img src="${countryFlag}" alt="${countryName} flag" width="30px"/></h2>
+                            <img src="${iconUrl}" alt="${description} icon" />
+                            <p>Temperature: ${temp} °C</p>
+                            <p>Weather: ${description}</p>
+                            <p>Humidity: ${humidity}%</p>
+                            <p>Wind Speed: ${windSpeed} m/s</p>
+                            <hr class="separator"/>
+                        `;
+
+                        fetchForecast(forecastUrl);
+                    })
+                    .catch(countryError => {
+                        console.error('Error fetching country data:', countryError);
+                        document.getElementById('weatherData').innerHTML = `<p>There was an error fetching country data</p>`;
+                    });
             }
         })
         .catch(error => {
@@ -65,7 +77,6 @@ function fetchWeather(url, forecastUrl) {
             document.getElementById('weatherData').innerHTML = `<p>There was an error fetching the data</p>`;
         });
 }
-
 
 function fetchForecast(forecastUrl) {
     fetch(forecastUrl)
@@ -101,13 +112,22 @@ function fetchForecast(forecastUrl) {
         });
 }
 
-const map = L.map('map').setView([13.41, 122.56], 6);
 
+// Initialize map with a default view
+const map = L.map('map').setView([12.90, 122.56], 5.4);
+
+// Adding OpenStreetMap tile layer
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
 
-const weatherLayer = L.tileLayer(`https://tile.openweathermap.org/map/temp_new/{z}/{x}/{y}.png?appid=${apiKey}`, {
-    maxZoom: 2,
+const weatherLayer = L.tileLayer(`https://tile.openweathermap.org/map/clouds_new/{z}/{x}/{y}.png?appid=${apiKey}`, {
+    maxZoom: 18,
+    attribution: '&copy; <a href="https://openweathermap.org">OpenWeatherMap</a>'
+}).addTo(map);
+
+// Adding OpenWeatherMap precipitation layer
+const precipitationLayer = L.tileLayer(`https://tile.openweathermap.org/map/wind_new/{z}/{x}/{y}.png?appid=${apiKey}`, {
+    maxZoom: 18,
     attribution: '&copy; <a href="https://openweathermap.org">OpenWeatherMap</a>'
 }).addTo(map);
