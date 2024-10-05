@@ -1,5 +1,7 @@
+/* Import Google Fonts for typography */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
+/* Global styling for the body element */
 body {
     font-family: 'Poppins', sans-serif;
     background-color: #121e2b;
@@ -13,6 +15,7 @@ body {
     color: #ffffff;
 }
 
+/* Container for weather display */
 .weather-container {
     display: flex;
     justify-content: space-between;
@@ -26,7 +29,7 @@ body {
     height: 500px;
 }
 
-
+/* Styles for the content area inside the weather container */
 .weather-content {
     width: 45%;
     max-height: 100%;
@@ -38,6 +41,7 @@ body {
     align-items: center;
 }
 
+/* Scrollbar styling */
 .weather-content::-webkit-scrollbar {
     width: 10px;
     display: none;
@@ -49,22 +53,28 @@ body {
     border: 2px solid #ffffff;
 }
 
-.weather-content::-webkit-scrollbar-track {
-    background-color: #02141d;
-}
-
+/* Styles for weather data display */
 .weather-data {
     font-size: 18px;
     text-align: center;
-    margin-top: 20px;
     color: #fff;
 }
 
-.weather-data img {
-    display: block;
-    margin: 0 auto;
+/* Styling for weather data headings */
+.weather-data h2, .weather-data h3 {
+    margin: 0;
+    padding: 5px 0;
+    font-size: 24px;
+    text-align: center;
 }
 
+/* Image styling inside weather data */
+.weather-data img {
+    display: block;
+    margin: auto;
+}
+
+/* Input field styling inside weather content */
 .weather-content input {
     width: 76%;
     padding: 10px;
@@ -77,6 +87,7 @@ body {
     color: #333;
 }
 
+/* Button styling inside weather content */
 .weather-content button {
     padding: 10px 15px;
     font-size: 16px;
@@ -87,14 +98,14 @@ body {
     cursor: pointer;
     transition: background-color 0.3s ease;
     margin-bottom: 10px;
-    width: 80%;
-    box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.1);
 }
 
+/* Button hover effect */
 .weather-content button:hover {
     background-color: #e1e9ef;
 }
 
+/* Separator line styling */
 .separator {
     border: none;
     border-top: 2px solid #ffffff;
@@ -102,6 +113,7 @@ body {
     width: 100%;
 }
 
+/* Container for forecast items */
 .forecast-container {
     display: flex;
     flex-wrap: wrap;
@@ -111,6 +123,7 @@ body {
     width: 100%;
 }
 
+/* Styling for each forecast item */
 .forecast-item {
     display: flex;
     flex-direction: column;
@@ -125,25 +138,31 @@ body {
     border-radius: 15px;
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s ease, background-color 0.3s ease;
+    border: 1px solid #ffffff;
 }
 
+/* Hover effect for forecast items */
 .forecast-item:hover {
     transform: scale(1.05);
     background-color: rgba(255, 255, 255, 0.2);
 }
 
+/* Image styling within forecast items */
 .forecast-item img {
     margin-bottom: 10px;
-    width: 100px;
-    height: 100px;
+    width: 80px;
+    height: 80px;
 }
 
+/* Text styling within forecast items */
 .forecast-item p {
     margin: 5px 0;
     font-size: 16px;
+    line-height: 1.5;
     color: #fff;
 }
 
+/* Map container styling */
 #map {
     width: 45%;
     height: 100%;
@@ -151,6 +170,7 @@ body {
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
+/* Responsive design adjustments for screens smaller than 768px */
 @media screen and (max-width: 768px) {
     .weather-container {
         flex-direction: column;
@@ -171,6 +191,7 @@ body {
     }
 }
 
+/* Container for the input field */
 .input-container {
     display: flex;
     position: relative;
@@ -178,6 +199,7 @@ body {
     margin-bottom: 15px;
 }
 
+/* Styling for input field inside the input container */
 .input-container input {
     width: 100%;
     padding: 10px 15px;
@@ -186,6 +208,7 @@ body {
     border: none;
 }
 
+/* Search icon positioning inside input container */
 .search-icon {
     position: absolute;
     top: 40%;
@@ -194,4 +217,76 @@ body {
     color: #1E81B0;
     font-size: 20px;
     pointer-events: none;
+}
+
+/* Location container styling for weather display */
+.location-container {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Heading styling within location container */
+.location-container h2 {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 600;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+/* Superscript country code styling */
+.country-code {
+    font-size: 18px;
+    color: #ffffff;
+    vertical-align: super;
+}
+
+/* Country flag styling */
+.country-flag {
+    display: block;
+    margin: 10px auto;
+    width: 60px;
+    height: auto;
+    border: 1px solid #ffffff;
+    border-radius: 5px;
+}
+
+/* Styling for current weather display */
+.current-weather-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(34, 51, 65, 0.9);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+    width: 80%;
+    max-width: 300px;
+    border: 1px solid #ffffff;
+}
+
+/* Text styling within current weather display */
+.current-weather-container p {
+    margin: 5px 0;
+    font-size: 18px;
+    line-height: 1.5;
+    color: #ffffff;
+    text-align: center;
+}
+
+/* Weather icon styling */
+.current-weather-container img.weather-icon {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 15px;
+}
+
+/* Separator line styling */
+.separator {
+    border: none;
+    border-top: 2px solid #ffffff;
+    margin: 20px 0;
+    width: 100%;
 }
