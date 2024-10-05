@@ -4,6 +4,7 @@
 /* Global styling for the body element */
 body {
     font-family: 'Poppins', sans-serif;
+    font-size: 15px;
     background-color: #121e2b;
     text-align: center;
     margin: 0;
@@ -23,15 +24,15 @@ body {
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0px 4px 15px rgba(2, 3, 7, 0.1);
-    width: 50%;
-    max-width: 1200px;
+    width: 80%; /* Increased width */
+    max-width: 1500px; /* Maximum width adjustment */
     margin: auto;
-    height: 500px;
+    height: 700px; /* Increased height */
 }
 
 /* Styles for the content area inside the weather container */
 .weather-content {
-    width: 45%;
+    width: 50%; /* Adjusted to occupy more space */
     max-height: 100%;
     overflow-y: auto;
     padding-right: 20px;
@@ -44,7 +45,6 @@ body {
 /* Scrollbar styling */
 .weather-content::-webkit-scrollbar {
     width: 10px;
-    display: none;
 }
 
 .weather-content::-webkit-scrollbar-thumb {
@@ -164,8 +164,8 @@ body {
 
 /* Map container styling */
 #map {
-    width: 45%;
-    height: 100%;
+    width: 50%; /* Adjusted width */
+    height: 100%; /* Adjusted height */
     border-radius: 15px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
@@ -179,7 +179,7 @@ body {
 
     #map {
         width: 100%;
-        height: 400px;
+        height: 500px; /* Adjusted height for smaller screens */
     }
 
     .weather-content {
@@ -262,8 +262,8 @@ body {
     border-radius: 15px;
     box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
     margin: 20px auto;
-    width: 80%;
-    max-width: 300px;
+    width: 90%; /* Adjusted width */
+    max-width: 500px; /* Maximum width adjustment */
     border: 1px solid #ffffff;
 }
 

@@ -1,6 +1,26 @@
 // Set the API key for OpenWeatherMap
 const apiKey = '300b02d251ab98b3c1a3cb5fd9aba801';
 
+// Initialize the map with a default view and coordinates
+const map = L.map('map').setView([12.90, 122.56], 5.4);
+
+// Add OpenStreetMap tile layer to the map
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+}).addTo(map);
+
+// Add OpenWeatherMap cloud layer to the map
+const weatherLayer = L.tileLayer(`https://tile.openweathermap.org/map/clouds_new/{z}/{x}/{y}.png?appid=${apiKey}`, {
+    maxZoom: 18,
+    attribution: '&copy; <a href="https://openweathermap.org">OpenWeatherMap</a>'
+}).addTo(map);
+
+// Add OpenWeatherMap wind layer to the map
+const precipitationLayer = L.tileLayer(`https://tile.openweathermap.org/map/wind_new/{z}/{x}/{y}.png?appid=${apiKey}`, {
+    maxZoom: 18,
+    attribution: '&copy; <a href="https://openweathermap.org">OpenWeatherMap</a>'
+}).addTo(map);
+
 // Function to get the weather information for the entered city
 function getWeather() {
     const city = document.getElementById('cityInput').value; // Get city input from the user
@@ -31,6 +51,9 @@ function getWeatherByLocation() {
 
             // Fetch the weather data using the URLs
             fetchWeather(url, forecastUrl);
+
+            // Update the map view without creating a marker or pin
+            map.setView([lat, lon], 10); // Move map view to the user's current location
         }, () => {
             alert("Unable to retrieve location."); // Handle location retrieval error
         });
@@ -50,6 +73,8 @@ function fetchWeather(url, forecastUrl) {
                 // Extract relevant weather data from the API response
                 const cityName = data.name;
                 const countryCode = data.sys.country;
+                const lat = data.coord.lat; // Latitude of the city
+                const lon = data.coord.lon; // Longitude of the city
                 const temp = data.main.temp;
                 const humidity = data.main.humidity;
                 const windSpeed = data.wind.speed;
@@ -81,6 +106,9 @@ function fetchWeather(url, forecastUrl) {
                         </div>
                         <hr class="separator"/>
                     `;
+
+                        // Update the map view without creating a marker
+                        map.setView([lat, lon], 10); // Move the map view to the city's coordinates
 
                         // Fetch forecast data and update the HTML
                         fetchForecast(forecastUrl);
@@ -138,22 +166,17 @@ function fetchForecast(forecastUrl) {
         });
 }
 
-// Initialize the map with a default view and coordinates
-const map = L.map('map').setView([12.90, 122.56], 5.4);
+// Function to update the map's view based on the given coordinates without creating markers
+function updateMapLocation(lat, lon) {
+    map.setView([lat, lon], 10); // Set map view to the new location with a zoom level of 10
+}
 
-// Add OpenStreetMap tile layer to the map
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-}).addTo(map);
+// Automatically display weather for current location on page load
+document.addEventListener('DOMContentLoaded', getWeatherByLocation);
 
-// Add OpenWeatherMap cloud layer to the map
-const weatherLayer = L.tileLayer(`https://tile.openweathermap.org/map/clouds_new/{z}/{x}/{y}.png?appid=${apiKey}`, {
-    maxZoom: 18,
-    attribution: '&copy; <a href="https://openweathermap.org">OpenWeatherMap</a>'
-}).addTo(map);
-
-// Add OpenWeatherMap wind layer to the map
-const precipitationLayer = L.tileLayer(`https://tile.openweathermap.org/map/wind_new/{z}/{x}/{y}.png?appid=${apiKey}`, {
-    maxZoom: 18,
-    attribution: '&copy; <a href="https://openweathermap.org">OpenWeatherMap</a>'
-}).addTo(map);
+// Add event listener to the city input field to detect "Enter" key press
+document.getElementById('cityInput').addEventListener('keypress', function (e) {
+    if (e.key === 'Enter') { // Check if the key pressed is "Enter"
+        getWeather(); // Call the getWeather function when "Enter" is pressed
+    }
+});
