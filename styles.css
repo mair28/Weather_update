@@ -44,7 +44,6 @@ body {
 /* Scrollbar styling */
 .weather-content::-webkit-scrollbar {
     width: 10px;
-    display: none;
 }
 
 .weather-content::-webkit-scrollbar-thumb {

@@ -1,17 +1,27 @@
 // Set the API key for OpenWeatherMap
 const apiKey = '300b02d251ab98b3c1a3cb5fd9aba801';
 
+// Add event listener for the Enter key on the city input field
+document.getElementById('cityInput').addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+        getWeather(); // Call getWeather function on Enter key press
+    }
+});
+
 // Function to get the weather information for the entered city
 function getWeather() {
     const city = document.getElementById('cityInput').value; // Get city input from the user
     if (city === '') { // If city is empty, alert the user
         alert('Please enter a city name');
         return;
-    }
+    } 
 
     // Construct URLs for current weather and forecast based on city input
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
     const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`;
+
+    // Optional: Show a loading message while fetching data
+    document.getElementById('weatherData').innerHTML = '<p>Loading...</p>';
 
     // Fetch the weather data
     fetchWeather(url, forecastUrl);
