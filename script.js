@@ -1,6 +1,7 @@
 // Set the API key for OpenWeatherMap
 const apiKey = '300b02d251ab98b3c1a3cb5fd9aba801';
 
+<<<<<<< HEAD
 // Initialize the map with a default view and coordinates
 const map = L.map('map').setView([12.90, 122.56], 5.4);
 
@@ -20,6 +21,14 @@ const precipitationLayer = L.tileLayer(`https://tile.openweathermap.org/map/wind
     maxZoom: 18,
     attribution: '&copy; <a href="https://openweathermap.org">OpenWeatherMap</a>'
 }).addTo(map);
+=======
+// Add event listener for the Enter key on the city input field
+document.getElementById('cityInput').addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+        getWeather(); // Call getWeather function on Enter key press
+    }
+});
+>>>>>>> 98cdcea3e9275d20bfc8bb68085d5a46256904ee
 
 // Function to get the weather information for the entered city
 function getWeather() {
@@ -27,11 +36,14 @@ function getWeather() {
     if (city === '') { // If city is empty, alert the user
         alert('Please enter a city name');
         return;
-    }
+    } 
 
     // Construct URLs for current weather and forecast based on city input
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
     const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`;
+
+    // Optional: Show a loading message while fetching data
+    document.getElementById('weatherData').innerHTML = '<p>Loading...</p>';
 
     // Fetch the weather data
     fetchWeather(url, forecastUrl);
